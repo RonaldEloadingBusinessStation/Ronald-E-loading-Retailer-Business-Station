@@ -734,13 +734,13 @@
       [
         "DITO Level-Up 99 (15 days)",
         "9GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 150 Mins Calls to Other Networks (15 days)",
-        94,
+        95,
         false
       ],
       [
         "DITO Level-Up 99 (30 days)",
         "7GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks (30 days)",
-        94,
+        95,
         false
       ],
       [
@@ -752,37 +752,37 @@
       [
         "DITO Level-Up 129",
         "12GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks + Prime Video Access (30 days)",
-        123,
+        124,
         false
       ],
       [
         "DITO Level-Up 169",
         "16GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks + Prime Video Access (30 days)",
-        161,
+        162,
         false
       ],
       [
         "DITO Level-Up 199",
         "20GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks + Prime Video Access (30 days)",
-        189,
+        190,
         false
       ],
       [
         "DITO Level-Up 299",
         "32GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks + Prime Video Access (30 days)",
-        284,
+        286,
         false
       ],
       [
         "DITO Level-Up 499",
         "62GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks + Prime Video Access (30 days)",
-        474,
+        477,
         false
       ],
       [
         "DITO Level-Up 999",
         "130GB All-Access Data + Unlimited Texts to All Networks + Unlimited DITO-to-DITO Calls + Unlimited DITO-to-DITO Video Calls + 300 Mins Calls to Other Networks + Prime Video Access (30 days)",
-        949,
+        955,
         false
       ],
       [
@@ -812,7 +812,7 @@
       [
         "Data Maxx 299",
         "30GB All-Access Data + UNLI Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + UNLI Calls & Texts to All Networks + UNLI DITO-to-DITO Video Calls (30 days)",
-        284,
+        286,
         true
       ],
       [
@@ -836,31 +836,31 @@
       [
         "Level-Up YouTube 99",
         "12GB Total Data: 10GB YouTube Data + 2GB All-Access Data + UNLI 5G for YouTube + FREE YouTube from 4:00AM-8:00AM (15 days)",
-        94,
+        95,
         false
       ],
       [
         "Level-Up YouTube 199",
         "26GB Total Data: 22GB YouTube Data + 4GB All-Access Data + UNLI 5G for YouTube + FREE YouTube from 4:00AM-8:00AM (30 days)",
-        189,
+        190,
         false
       ],
       [
         "Level-Up YouTube 299",
         "40GB Total Data: 30GB YouTube Data + 10GB All-Access Data + UNLI 5G for YouTube + FREE YouTube from 4:00AM-8:00AM + Unlimited Texts to All Networks + Unlimited Calls DITO-to-DITO + 300 Mins Calls to Other Networks (30 days)",
-        284,
+        286,
         false
       ],
       [
         "StreamZone99",
         "5GB All-Access Data + 5GB Streaming Data + Unlimited Mobile Calls and Texts to All Networks + Free iWant and BlastTV Vouchers (15 days)",
-        94,
+        95,
         false
       ],
       [
         "StreamZone199",
         "11GB All-Access Data + 11GB Streaming Data + Unlimited Mobile Calls and Texts to All Networks + Free Prime Video Mobile Access for 30 days + Free iWant and BlastTV Vouchers (30 days)",
-        189,
+        190,
         false
       ],
       [
@@ -872,7 +872,7 @@
       [
         "Unli 5G Maxx 99",
         "Unlimited 5G Data + 5GB All-Access Data + Unlimited Calls & Texts to All Mobile Networks + Unlimited DITO-to-DITO Video Calls with no data charge (3 days)",
-        94,
+        95,
         true
       ],
       [
@@ -884,13 +884,13 @@
       [
         "Unli 5G Maxx 249",
         "Unlimited 5G Data + 20GB All-Access Data + Unlimited Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + Unlimited Calls & Texts to all networks (Mobile) + Unlimited Video Calls DITO-to-DITO with no data charge (15 days)",
-        237,
+        238,
         true
       ],
       [
         "Unli 5G Maxx 449",
         "Unlimited 5G Data + 30GB All-Access Data + Unlimited Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + Unlimited Calls & Texts to all networks (Mobile) + Unlimited Video Calls DITO-to-DITO with no data charge (30 days)",
-        427,
+        429,
         true
       ],
       [
@@ -914,25 +914,25 @@
       [
         "Level-Up Socials 299",
         "Unli Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + 5GB All-Access Data (30 days)",
-        284,
+        286,
         false
       ],
       [
         "Level-Up Socials 399",
         "Unli Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + 10GB All-Access Data (30 days)",
-        379,
+        381,
         false
       ],
       [
         "Level-Up Socials 499",
         "Unli Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + 15GB All-Access Data (30 days)",
-        474,
+        477,
         false
       ],
       [
         "Level-Up Socials 599",
         "Unli Data for Facebook, Messenger, Instagram, WhatsApp, Threads & TikTok + 20GB All-Access Data (30 days)",
-        569,
+        573,
         false
       ],
       [
@@ -1114,85 +1114,85 @@
       [
         "Go+99",
         "20GB Total Data + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "Go+99 with GoWATCH",
         "20GB Total Data + GoWATCH + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "Go+99 with GoPLAY",
         "20GB Total Data + GoPLAY + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "Go+99 with GoLEARN",
         "20GB Total Data + GoLEARN + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "Go+99 with GoSHARE",
         "20GB Total Data + GoSHARE + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "Go+109",
         "22GB Total Data + Unli Allnet Texts + Discount Voucher (7 days)",
-        93,
+        98,
         false
       ],
       [
         "Go+129",
         "27GB Total Data + Unli Allnet Texts + Discount Voucher (7 days)",
-        110,
+        116,
         false
       ],
       [
         "Go+149",
         "29GB Total Data (13GB Data + 8GB Apps + 8GB 5G) + Unli Allnet Texts + Discount Voucher (7 days)",
-        127,
+        134,
         false
       ],
       [
         "Go+179",
         "24GB Total Data (8GB Data + 8GB 5G + 8GB Apps) + Unli Allnet Texts + Discount Voucher (15 days)",
-        152,
+        161,
         false
       ],
       [
         "Go+250",
         "15GB Data + 8GB 5G Data + 15GB Apps Data + Discount Voucher (15 days)",
-        213,
+        225,
         false
       ],
       [
         "Go+400",
         "48GB Total Data (25GB Data + 8GB 5G + 15GB Apps) + Discount Voucher (15 days)",
-        340,
+        360,
         false
       ],
       [
         "UnliGo99 Facebook",
         "5GB All-Sites Data + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "UnliGo99 TikTok",
         "5GB All-Sites Data + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "UnliGo99 Instagram",
         "5GB All-Sites Data + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
@@ -1204,103 +1204,103 @@
       [
         "GoEXTRA99",
         "11GB Total Data + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "GoEXTRA109",
         "14GB Total Data + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        93,
+        98,
         false
       ],
       [
         "GoEXTRA199",
         "16GB Total Data + Unli Allnet Calls (15 days)",
-        169,
+        179,
         false
       ],
       [
         "GoEXTRA149",
         "21GB Total Data (13GB Data + 8GB 5G) + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        127,
+        134,
         false
       ],
       [
         "GoEXTRA179",
         "13GB Total Data (5GB Data + 8GB 5G) + Unli Allnet Calls + Unli Allnet Texts (15 days)",
-        152,
+        161,
         false
       ],
       [
         "GoEXTRA199",
         "16GB Total Data (8GB Data + 8GB 5G) + Unli Allnet Calls + Unli Allnet Texts (15 days)",
-        169,
+        179,
         false
       ],
       [
         "SURF4ALL99",
         "9GB Shareable All-Sites Data (7 days)",
-        84,
+        89,
         false
       ],
       [
         "SURF4ALL249",
         "20GB Shareable All-Sites Data (7 days)",
-        212,
+        209,
         false
       ],
       [
         "GLOBE REGULAR LOAD 10",
-        "P9 Regular Load.",
+        "P10 Regular Load.",
         9,
         false
       ],
       [
         "GLOBE REGULAR LOAD 20",
-        "P18 Regular Load.",
+        "P19 Regular Load.",
         18,
         false
       ],
       [
         "GLOBE REGULAR LOAD 30",
-        "P27 Regular Load.",
+        "P28 Regular Load.",
         27,
         false
       ],
       [
         "GLOBE REGULAR LOAD 50",
-        "P45 Regular Load.",
+        "P47 Regular Load.",
         45,
         false
       ],
       [
         "GLOBE REGULAR LOAD 100",
-        "P85 Regular Load.",
-        85,
+        "P93 Regular Load.",
+        90,
         false
       ],
       [
         "GLOBE REGULAR LOAD 200",
-        "P170 Regular Load.",
-        170,
+        "P186 Regular Load.",
+        180,
         false
       ],
       [
         "GLOBE REGULAR LOAD 300",
-        "P255 Regular Load.",
-        255,
+        "P279 Regular Load.",
+        270,
         false
       ],
       [
         "GLOBE REGULAR LOAD 500",
-        "P425 Regular Load.",
-        425,
+        "P465 Regular Load.",
+        450,
         false
       ],
       [
         "GLOBE REGULAR LOAD 1000",
-        "P850 Regular Load.",
-        850,
+        "P930 Regular Load.",
+        900,
         false
       ]
     ],
@@ -1422,115 +1422,115 @@
       [
         "EZ99 5G",
         "17GB: 3GB + 2GB/Day 5G + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "EZ99 FunALIW",
         "17GB: 3GB + 2GB/Day FunALIW + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "EZ99 FunACHIEVE",
         "17GB: 3GB + 2GB/Day FunACHIEVE + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "PowerSURF99",
         "10GB: 3GB Data + 6GB FunALIW + 1GB 5G + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "ALLSURF99",
         "18GB: 7GB + 1GB/Day FunALIW + 4GB 5G + Unli Allnet Texts (7 days)",
-        84,
+        89,
         false
       ],
       [
         "SURF4ALL99",
         "9GB Shareable All-Sites Data (7 days)",
-        84,
+        89,
         false
       ],
       [
         "GoCallIDD99",
         "PHP 99 worth of IDD Credits (30 days)",
-        84,
+        89,
         false
       ],
       [
         "EZ110 FunALIW",
         "18GB: 4GB + 2GB/Day FunALIW + Unli Allnet Texts (7 days)",
-        94,
+        99,
         false
       ],
       [
         "EZ110 5G",
         "18GB: 4GB + 2GB/Day 5G + Unli Allnet Texts (7 days)",
-        94,
+        99,
         false
       ],
       [
         "ALLSURF110",
         "19GB: 8GB + 1GB/Day FunALIW + 4GB 5G + Unli Allnet Texts (7 days)",
-        94,
+        99,
         false
       ],
       [
         "EZ140 FunALIW",
         "18GB: 4GB + 2GB/Day FunALIW + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        119,
+        126,
         false
       ],
       [
         "EZ140 FunACHIEVE",
         "18GB: 4GB + 2GB/Day FunACHIEVE + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        119,
+        126,
         false
       ],
       [
         "EZ140 5G",
         "18GB: 4GB + 2GB/Day 5G + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        119,
+        126,
         false
       ],
       [
         "ALLSURF149",
         "19GB + 8GB 5G: 12GB + 1GB/Day FunALIW + 8GB 5G + Unli Allnet Calls + Unli Allnet Texts (7 days)",
-        127,
+        134,
         false
       ],
       [
         "TM EasyPlan159",
         "34GB: 2GB Data + 2GB/Day Apps + 2GB 5G + Unli Allnet Calls + Unli Allnet Texts (15 days)",
-        135,
+        143,
         false
       ],
       [
         "GoCallIDD199",
         "PHP 200 worth of IDD Credits (30 days)",
-        169,
+        179,
         false
       ],
       [
         "SURF4ALL249",
         "20GB Shareable All-Sites Data (7 days)",
-        212,
+        224,
         false
       ],
       [
         "EZ299",
         "12GB: 2GB + 10GB FunALIW or FunACHIEVE (30 days)",
-        254,
+        269,
         false
       ],
       [
         "TM EasyPlan300",
         "64GB: 2GB Data + 2GB/Day Apps + 2GB 5G + Unli Allnet Calls + Unli Allnet Texts (30 days)",
-        255,
+        270,
         false
       ],
       [
@@ -1560,31 +1560,31 @@
       [
         "TM REGULAR LOAD 100",
         "P93 Regular Load.",
-        85,
+        90,
         false
       ],
       [
         "TM REGULAR LOAD 200",
         "P186 Regular Load.",
-        170,
+        180,
         false
       ],
       [
         "TM REGULAR LOAD 300",
         "P279 Regular Load.",
-        255,
+        270,
         false
       ],
       [
         "TM REGULAR LOAD 500",
         "P465 Regular Load.",
-        425,
+        450,
         false
       ],
       [
         "TM REGULAR LOAD 1000",
         "P930 Regular Load.",
-        850,
+        900,
         false
       ]
     ],
@@ -1592,151 +1592,151 @@
       [
         "GOMO7GB149",
         "7GB No Expiry Data + UNLI Calls & Texts (7 days)",
-        127,
+        134,
         false
       ],
       [
         "GOMO15GB249",
         "15GB No Expiry Data + UNLI Calls & Texts (7 days)",
-        212,
+        224,
         false
       ],
       [
         "GOMO30GB449",
         "30GB No Expiry Data + UNLI Calls & Texts (7 days)",
-        382,
+        404,
         false
       ],
       [
         "GOMO_UNLI7_199",
         "UNLI Data up to 10 Mbps (7 days)",
-        169,
+        179,
         false
       ],
       [
         "GOMO_UNLI7_249",
         "UNLI Data up to 10 Mbps + UNLI Calls & Texts (7 days)",
-        212,
+        224,
         false
       ],
       [
         "GOMO_UNLI30_799",
         "UNLI Data up to 10 Mbps (30 days)",
-        679,
+        719,
         false
       ],
       [
         "GOMO_UNLI30_999",
         "UNLI Data up to 10 Mbps + UNLI Calls & Texts (30 days)",
-        849,
+        899,
         false
       ],
       [
         "GOMO_F50_299",
         "UNLI Fiber up to 50 Mbps + 7GB No Expiry Data (7 days)",
-        254,
+        269,
         false
       ],
       [
         "GOMO_F50_349",
         "UNLI Fiber up to 50 Mbps + Mobile Data up to 10 Mbps (7 days)",
-        297,
+        314,
         false
       ],
       [
         "GOMO_F50_399",
         "UNLI Fiber up to 50 Mbps + Mobile Data up to 10 Mbps + UNLI Calls & Texts (7 days)",
-        339,
+        359,
         false
       ],
       [
         "GOMO_F50_899",
         "UNLI Fiber up to 50 Mbps + 15GB No Expiry Data (30 days)",
-        764,
+        809,
         false
       ],
       [
         "GOMO_F50_1299",
         "UNLI Fiber up to 50 Mbps + Mobile Data up to 10 Mbps (30 days)",
-        1104,
+        1169,
         false
       ],
       [
         "GOMO_F50_1499",
         "UNLI Fiber up to 50 Mbps + Mobile Data up to 10 Mbps + UNLI Calls & Texts (30 days)",
-        1274,
+        1349,
         false
       ],
       [
         "GOMO_F100_399",
         "UNLI Fiber up to 100 Mbps + 7GB No Expiry Data (7 days)",
-        339,
+        359,
         false
       ],
       [
         "GOMO_F100_449",
         "UNLI Fiber up to 100 Mbps + Mobile Data up to 10 Mbps (7 days)",
-        382,
+        404,
         false
       ],
       [
         "GOMO_F100_499",
         "UNLI Fiber up to 100 Mbps + Mobile Data up to 10 Mbps + UNLI Calls & Texts (7 days)",
-        424,
+        449,
         false
       ],
       [
         "GOMO_F100_1199",
         "UNLI Fiber up to 100 Mbps + 15GB No Expiry Data (30 days)",
-        1019,
+        1079,
         false
       ],
       [
         "GOMO_F100_1599",
         "UNLI Fiber up to 100 Mbps + Mobile Data up to 10 Mbps (30 days)",
-        1359,
+        1439,
         false
       ],
       [
         "GOMO_F100_1799",
         "UNLI Fiber up to 100 Mbps + Mobile Data up to 10 Mbps + UNLI Calls & Texts (30 days)",
-        1529,
+        1619,
         false
       ],
       [
         "GOMO_F300_599",
         "UNLI Fiber up to 300 Mbps + 7GB No Expiry Data (7 days)",
-        509,
+        539,
         false
       ],
       [
         "GOMO_F300_649",
         "UNLI Fiber up to 300 Mbps + Mobile Data up to 10 Mbps (7 days)",
-        552,
+        584,
         false
       ],
       [
         "GOMO_F300_699",
         "UNLI Fiber up to 300 Mbps + Mobile Data up to 10 Mbps + UNLI Calls & Texts (7 days)",
-        594,
+        629,
         false
       ],
       [
         "GOMO_F300_1699",
         "UNLI Data up to 300 Mbps + 15GB No Expiry Data (30 days)",
-        1444,
+        1529,
         false
       ],
       [
         "GOMO_F300_2099",
         "UNLI Fiber up to 300 Mbps + Mobile Data up to 10 Mbps (30 days)",
-        1784,
+        1889,
         false
       ],
       [
         "GOMO_F300_2299",
         "UNLI Fiber up to 300 Mbps + Mobile Data up to 10 Mbps + UNLI Calls & Texts (30 days)",
-        1954,
+        2069,
         false
       ]
     ],
@@ -1750,49 +1750,49 @@
       [
         "FamSURF Extra 199",
         "50GB Shareable Open Access Data (7 days)",
-        169,
+        179,
         false
       ],
       [
         "FamSURF Extra 299",
         "75GB Shareable Open Access Data (7 days)",
-        254,
+        269,
         false
       ],
       [
         "FamSURF Unli 399",
         "Unli All-Access Data (7 days)",
-        339,
+        359,
         false
       ],
       [
         "FamSURF No Expiry 399",
         "30GB All-Access Data (No Expiry)",
-        339,
+        359,
         false
       ],
       [
         "FamSURF Extra 499",
         "120GB Shareable Open Access Data (15 days)",
-        424,
+        449,
         false
       ],
       [
         "FamSURF No Expiry 699",
         "60GB All-Access Data (No Expiry)",
-        594,
+        629,
         false
       ],
       [
         "FamSURF Unli 999",
         "Unli All-Access Data (30 days)",
-        849,
+        899,
         false
       ],
       [
         "FamSURF Extra 999",
         "250GB Shareable Open Access Data (30 days)",
-        849,
+        899,
         false
       ],
       [
@@ -1804,7 +1804,7 @@
       [
         "HomeSurf1499",
         "120GB Shareable Open Access Data (30 days)",
-        1274,
+        1349,
         false
       ]
     ],
@@ -1812,97 +1812,97 @@
       [
         "UNLISurf249",
         "50Mbps UNLI Surf (7 days)",
-        212,
+        224,
         false
       ],
       [
         "UNLISurf399",
         "100Mbps UNLI Surf (7 days)",
-        339,
+        359,
         false
       ],
       [
         "UNLISurf749",
         "50Mbps UNLI Surf (30 days)",
-        637,
+        674,
         false
       ],
       [
         "UNLISurf999",
         "100Mbps UNLI Surf (30 days)",
-        849,
+        899,
         false
       ],
       [
         "UNLISurf1499",
         "300Mbps UNLI Surf (30 days)",
-        1274,
+        1349,
         false
       ],
       [
         "UNLISurf1999",
         "500Mbps UNLI Surf (30 days)",
-        1699,
+        1799,
         false
       ],
       [
         "UNLISurf2499",
         "100Mbps UNLI Surf (90 days)",
-        2124,
+        2249,
         false
       ],
       [
         "UNLISurf3749",
         "300Mbps UNLI Surf (90 days)",
-        3186,
+        3374,
         false
       ],
       [
         "UNLISurf4999",
         "100Mbps UNLI Surf (180 days)",
-        4249,
+        4499,
         false
       ],
       [
         "UNLISurf4999",
         "500Mbps UNLI Surf (90 days)",
-        4249,
+        4499,
         false
       ],
       [
         "UNLISurf6999",
         "50Mbps UNLI Surf (365 days)",
-        5949,
+        6299,
         false
       ],
       [
         "UNLISurf7499",
         "300Mbps UNLI Surf (180 days)",
-        6374,
+        6749,
         false
       ],
       [
         "UNLISurf9999",
         "100Mbps UNLI Surf (365 days)",
-        8499,
+        8999,
         false
       ],
       [
         "UNLISurf9999",
         "500Mbps UNLI Surf (180 days)",
-        8499  ,
+        8999,
         false
       ],
       [
         "UNLISurf14999",
         "300Mbps UNLI Surf (365 days)",
-        12749,
+        13499,
         false
       ],
       [
         "UNLISurf19999",
         "500Mbps UNLI Surf (365 days)",
-        16999,
+        17999,
         false
       ]
     ],
@@ -1922,116 +1922,116 @@
       [
         "Landline Plus 100",
         "Convert your Landline Plus load into Landline Plus Plan 150 or 300 or just top-up for more outgoing calls. Valid for 1 year.",
-        97,
+        98,
         true
       ],
       [
         "Landline Plus 200",
         "Convert your Landline Plus load into Landline Plus Plan 150 or 300 or just top-up for more outgoing calls. Valid for 1 year.",
-        194,
+        196,
         false
       ],
       [
         "Landline Plus 300",
         "Convert your Landline Plus load into Landline Plus Plan 150 or 300 or just top-up for more outgoing calls. Valid for 1 year.",
         null,
-        291,
+        294,
         false
       ],
       [
         "Landline Plus 1000",
         "Convert your Landline Plus load into Landline Plus Plan 150 or 300 or just top-up for more outgoing calls. Valid for 1 year.",
-        970,
+        980,
         false
       ],
       [
-        "UNLI 50 Fiber Prepaid 50Mbps 1 Day",
+        "UNLI Fiber Prepaid 50Mbps 1 Day",
         "Valid for 1 Day",
         49,
         false
       ],
       [
-        "UNLI 200 Fiber Prepaid 50Mbps 7 Days",
+        "UNLI Fiber Prepaid 50Mbps 7 Days",
         "Valid for 7 Days",
-        194,
+        195,
         false
       ],
       [
-        "UNLI 379 Fiber Prepaid 50Mbps 15 Days",
+        "UNLI Fiber Prepaid 50Mbps 15 Days",
         "Valid for 15 Days",
-        368,
+        371,
         false
       ],
       [
-        "UNLI 699 Fiber Prepaid 50Mbps 30 Days",
+        "UNLI Fiber Prepaid 50Mbps 30 Days",
         "Valid for 30 Days",
-        678,
+        685,
         true
       ],
       [
-        "UNLI 6999 Fiber Prepaid 50Mbps 365 Days",
+        "UNLI Fiber Prepaid 50Mbps 365 Days",
         "Valid for 365 Days",
-        6789,
+        6859,
         false
       ],
       [
-        "UNLI 100 Fiber Prepaid 100Mbps 1 Day",
+        "UNLI Fiber Prepaid 100Mbps 1 Day",
         "Valid for 1 Day",
         97,
         false
       ],
       [
-        "UNLI 379 Fiber Prepaid 100Mbps 7 Days",
+        "UNLI Fiber Prepaid 100Mbps 7 Days",
         "Valid for 7 Days",
-        368,
+        371,
         false
       ],
       [
-        "UNLI 549 Fiber Prepaid 100Mbps 15 Days",
+        "UNLI Fiber Prepaid 100Mbps 15 Days",
         "Valid for 15 Days",
-        533,
+        538,
         false
       ],
       [
-        "UNLI 999 Fiber Prepaid 100Mbps 30 Days",
+        "UNLI Fiber Prepaid 100Mbps 30 Days",
         "Valid for 30 Days",
-        969,
+        979,
         false
       ],
       [
-        "UNLI 9999 Fiber Prepaid 100Mbps 365 Days",
+        "UNLI Fiber Prepaid 100Mbps 365 Days",
         "Valid for 365 Days",
-        9699,
+        9799,
         false
       ],
       [
-        "UNLI 199 Fiber Prepaid 300Mbps 1 Day",
+        "UNLI Fiber Prepaid 300Mbps 1 Day",
         "Valid for 1 Day",
-        193,
+        195,
         false
       ],
       [
-        "UNLI 699 Fiber Prepaid 300Mbps 7 Days",
+        "UNLI Fiber Prepaid 300Mbps 7 Days",
         "Valid for 7 Days",
-        678,
+        685,
         false
       ],
       [
-        "UNLI 999 Fiber Prepaid 300Mbps 15 Days",
+        "UNLI Fiber Prepaid 300Mbps 15 Days",
         "Valid for 15 Days",
-        969,
+        979,
         false
       ],
       [
-        "UNLI 1499 Fiber Prepaid 300Mbps 30 Days",
+        "UNLI Fiber Prepaid 300Mbps 30 Days",
         "Valid for 30 Days",
-        1454,
+        1469,
         false
       ],
       [
-        "UNLI 14999 Fiber Prepaid 300Mbps 365 Days",
+        "UNLI Fiber Prepaid 300Mbps 365 Days",
         "Valid for 365 Days",
-        14549,
+        14699,
         false
       ]
     ],
@@ -2039,79 +2039,79 @@
       [
         "Cignal Sports Action 300",
         "Intense LIVE sports and action movies! Watch up to 69 channels.",
-        291,
+        294,
         false
       ],
       [
         "Cignal Family Time 300",
         "Complete bonding experience with all your family faves! Watch up to 79 channels.",
-        291,
+        294,
         false
       ],
       [
         "Cignal Ultimate Entertainment 300",
         "Your must-watch entertainment and news updates! Watch up to 78 channels.",
-        291,
+        294,
         false
       ],
       [
         "Cignal Asian & Pinoy 300",
         "Feel all kinds of kilig with Asian & local shows! Watch up to 68 channels.",
-        291,
+        294,
         false
       ],
       [
         "Cignal Ultimate Entertainment 600",
         "Ultimate Entertainment 300 + more channels. With HBO GO streaming access!",
-        582,
+        588,
         false
       ],
       [
         "Cignal Plan 175",
         "Load 175. Valid for 30 days.",
-        170,
+        172,
         false
       ],
       [
         "Cignal Plan 200",
         "Load 200. Valid for 30 days.",
-        194,
+        196,
         false
       ],
       [
         "Cignal Plan 300",
         "Load 300. Valid for 30 days.",
-        291,
+        294,
         false
       ],
       [
         "Cignal Plan 450",
         "Load 450. Valid for 30 days.",
-        437,
+        441,
         false
       ],
       [
         "Cignal Plan 500",
         "Load 500. Valid for 30 days.",
-        485,
+        490,
         false
       ],
       [
         "Cignal Plan 600",
         "Load 600. Valid for 30 days.",
-        582,
+        588,
         false
       ],
       [
         "Cignal Plan 800",
         "Load 800. Valid for 30 days.",
-        776,
+        784,
         false
       ],
       [
         "Cignal Plan 1000",
         "Load 1000. Valid for 30 days.",
-        970,
+        980,
         false
       ],
       [
@@ -2141,19 +2141,19 @@
       [
         "SatLite 99",
         "Load 99 - Watch up to 39 channels. Valid for 30 days.",
-        96,
+        97,
         false
       ],
       [
         "SatLite 199",
         "Load 199 - Watch up to 46 channels. Valid for 30 days.",
-        193,
+        195,
         false
       ],
       [
         "SatLite 299",
         "Load 299 - Watch up to 51 channels. Valid for 30 days.",
-        290,
+        293,
         false
       ]
     ]
