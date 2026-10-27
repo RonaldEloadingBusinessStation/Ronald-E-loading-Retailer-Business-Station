@@ -1,0 +1,148 @@
+const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];let historyOrders=[];let activeHistoryReceipt=null;
+function esc(v){return String(v??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]))}function money(c){return '₱'+(Number(c||0)/100).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}function msg(el,text,type=''){el.textContent=text;el.className='msg '+type}
+const API_BASE=(location.hostname.endsWith('.onrender.com')||location.hostname==='localhost'||location.hostname==='127.0.0.1')?location.origin:'https://ronald-retailer-portal-1.onrender.com';
+async function api(url,options={}){
+  const target=/^https?:\/\//i.test(url)?url:`${API_BASE}${url.startsWith('/')?url:`/${url}`}`;
+  let lastError;
+  // Render free services may need time to wake. Give the backend a little longer
+  // before showing a connection error, while keeping credentials enabled for sessions.
+  for(let attempt=0;attempt<3;attempt++){
+    try{
+      const r=await fetch(target,{...options,credentials:'include',signal:AbortSignal.timeout(45000)});
+      let d={};try{d=await r.json()}catch{}
+      if(!r.ok)throw new Error(d.error||`Request failed (${r.status}).`);
+      return d;
+    }catch(err){
+      lastError=err;
+      if(attempt<2){await new Promise(resolve=>setTimeout(resolve,attempt===0?2500:5000));continue;}
+    }
+  }
+  const detail=lastError?.name==='TimeoutError'?'Nag-timeout ang server. Subukang muli makalipas ang ilang sandali.':(lastError?.message||'Network error');
+  throw new Error('Hindi makakonekta sa Render server. Pakisubukang muli pagkalipas ng ilang segundo. ('+detail+')');
+}
+function formObj(form){return Object.fromEntries(new FormData(form).entries())}
+$$('[data-auth]').forEach(b=>b.onclick=()=>{const reg=b.dataset.auth==='register';$$('[data-auth]').forEach(x=>x.classList.toggle('active',x===b));$('#loginForm').hidden=reg;$('#registerForm').hidden=!reg;msg($('#authMsg'),'')});
+if(new URLSearchParams(window.location.search).get('mode')==='register'){document.querySelector('[data-auth=register]').click()}
+const incomingReferral=(new URLSearchParams(window.location.search).get('ref')||'').trim().toUpperCase();if($('#registerReferralCode'))$('#registerReferralCode').value=incomingReferral;if(incomingReferral){document.querySelector('[data-auth=register]').click();msg($('#authMsg'),'You were invited by a retailer. Complete registration to connect the referral.','success')}
+$('#loginForm').onsubmit=async e=>{e.preventDefault();const f=e.currentTarget;const b=f.querySelector('button');b.disabled=true;try{await api('/api/retailer/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(formObj(f))});f.reset();await loadApp()}catch(x){msg($('#authMsg'),x.message,'error')}finally{b.disabled=false}};
+$('#registerForm').onsubmit=async e=>{e.preventDefault();const f=e.currentTarget;const b=f.querySelector('button');b.disabled=true;try{await api('/api/retailer/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(formObj(f))});f.reset();await loadApp()}catch(x){msg($('#authMsg'),x.message,'error')}finally{b.disabled=false}};
+$('#copyReferralLink').onclick=async()=>{const input=$('#referralLink');try{await navigator.clipboard.writeText(input.value)}catch(e){input.select();document.execCommand('copy')}const b=$('#copyReferralLink');const old=b.textContent;b.textContent='✅ Copied';setTimeout(()=>b.textContent=old,1500)};
+$('#redeemReferralForm').onsubmit=async e=>{e.preventDefault();const amount=Number($('#redeemAmount').value);const b=e.currentTarget.querySelector('button');b.disabled=true;msg($('#redeemReferralMsg'),'Sending redemption request…');try{const d=await api('/api/retailer/referrals/redeem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount})});msg($('#redeemReferralMsg'),d.message||'Request sent.','success');e.currentTarget.reset();await loadApp()}catch(x){msg($('#redeemReferralMsg'),x.message,'error')}finally{b.disabled=false}};
+$('#logout').onclick=async()=>{await api('/api/retailer/logout',{method:'POST'}).catch(()=>{});$('#app').hidden=true;$('#auth').hidden=false;adminKey='';adminOpened=false};
+$$('[data-view]').forEach(b=>b.onclick=()=>{ $$('.navtab').forEach(x=>x.classList.toggle('active',x===b));$$('.panel').forEach(p=>p.hidden=p.id!=='view-'+b.dataset.view);if(b.dataset.view==='history')loadApp()});
+$('#walletTopupShortcut').onclick=()=>{const b=$('[data-view=topup]');if(b)b.click()};
+async function loadApp(){try{const d=await api('/api/retailer/me');$('#auth').hidden=true;$('#app').hidden=false;refreshRetailerNotificationState();$('#displayName').textContent=d.user.display_name;$('#retailerUsername').textContent='@'+d.user.username;$('#retailerId').textContent='RET-'+d.user.id;$('#wallet').textContent=money(d.user.wallet_cents);historyOrders=d.orders||[];renderTable('#ordersList',['Order','Customer / Mobile','Network / Promo','Amount','Status','Date','Receipt'],historyOrders.map((o,i)=>[esc(o.order_number),`${esc(o.customer_name)}<br>${esc(o.mobile)}`,`${esc(o.network)}<br>${esc(o.promo)}`,money(o.amount_cents),badge(o.status),esc(new Date(o.created_at).toLocaleString()),`<button type="button" class="mini view-history-receipt" data-receipt-index="${i}">VIEW FULL RECEIPT</button>`]));$('#ordersList').querySelectorAll('[data-receipt-index]').forEach(btn=>btn.addEventListener('click',()=>openHistoryReceipt(historyOrders[Number(btn.dataset.receiptIndex)])));renderTable('#topupsList',['Request','Amount','Method / Ref','Status','Date'],d.topups.map(t=>['#'+t.id,money(t.amount_cents),`${t.method}<br>${t.reference||'—'}`,badge(t.status),new Date(t.created_at).toLocaleString()]));renderTable('#ledgerList',['Type','Amount','Reference','Description','Date'],d.ledger.map(l=>[l.kind,`<span class="${Number(l.amount_cents)<0?'negative':'positive'}">${money(l.amount_cents)}</span>`,l.reference,l.description,new Date(l.created_at).toLocaleString()]));
+const refCode=d.user.referral_code||('R'+d.user.id);const inviteUrl=new URL(window.location.href);inviteUrl.search='?mode=register&ref='+encodeURIComponent(refCode);$('#referralLink').value=inviteUrl.toString();$('#referralWallet').textContent=money(d.user.referral_wallet_cents);const refs=d.referrals||[];$('#referralCount').textContent=String(new Set(refs.map(x=>x.referred_user_id)).size);$('#referralApproved').textContent=money(refs.filter(x=>x.status==='APPROVED').reduce((a,x)=>a+Number(x.bonus_cents||0),0));$('#referralPending').textContent=money(refs.filter(x=>x.status==='PENDING').reduce((a,x)=>a+Number(x.bonus_cents||0),0));renderTable('#referralHistory',['Bonus','Referred retailer','Network','Load price','Rate','Bonus','Status','Date'],refs.map(x=>['#'+x.id,esc(x.referred_name),esc(x.network),money(x.load_amount_cents),String(x.rate_percent)+'%',money(x.bonus_cents),badge(x.status),new Date(x.created_at).toLocaleString()]));renderTable('#redemptionHistory',['Request','Amount','Status','Requested','Reviewed'],(d.redemptions||[]).map(x=>['#'+x.id,money(x.amount_cents),badge(x.status),new Date(x.created_at).toLocaleString(),x.reviewed_at?new Date(x.reviewed_at).toLocaleString():'—']));}catch(e){if(!$('#auth').hidden){msg($('#authMsg'),e.message,'error')}else{alert(e.message)}}}
+async function saveRetailerPushSubscription(reg, keyData){
+ const out=$('#notificationMsg');
+ let sub=await reg.pushManager.getSubscription();
+ if(!sub){
+  const raw=keyData.publicKey.replace(/-/g,'+').replace(/_/g,'/');
+  const padded=raw+'='.repeat((4-raw.length%4)%4);
+  const bytes=Uint8Array.from(atob(padded),c=>c.charCodeAt(0));
+  sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:bytes});
+ }
+ await api('/api/retailer/push/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription:sub})});
+ if(enableBtn){enableBtn.textContent='✓ Notifications Enabled';enableBtn.disabled=true;enableBtn.hidden=true;}
+ if(out)msg(out,'Notifications are enabled on this browser. You do not need to enable them again.','success');
+}
+async function refreshRetailerNotificationState(){
+ const out=$('#notificationMsg');
+ if(!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
+ if(location.protocol!=='https:' && location.hostname!=='localhost') return;
+ if(Notification.permission!=='granted') return; // Never ask again on page open.
+ try{
+  const keyData=await api('/api/push/public-key');
+  const reg=await navigator.serviceWorker.register('./service-worker.js', {scope: './'});
+  await saveRetailerPushSubscription(reg,keyData); // Re-associate this browser subscription with the signed-in retailer.
+ }catch(e){if(out)msg(out,'Could not restore notification subscription. Please try Enable Notifications once.','error');if(enableBtn){enableBtn.hidden=false;enableBtn.disabled=false;}}
+}
+async function enableRetailerNotifications(){
+ const out=$('#notificationMsg');
+ try {
+  if(!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) throw new Error('This browser does not support web push. Try opening the website in Chrome.');
+  if(location.protocol!=='https:' && location.hostname!=='localhost') throw new Error('Notifications require HTTPS.');
+  if(Notification.permission==='denied') throw new Error('Notifications are blocked in browser settings. Enable them there first.');
+  if(Notification.permission!=='granted'){
+   const permission=await Notification.requestPermission();
+   if(permission!=='granted') throw new Error('Notifications were not allowed.');
+  }
+  const keyData=await api('/api/push/public-key');
+  const reg=await navigator.serviceWorker.register('./service-worker.js', {scope: './'});
+  await saveRetailerPushSubscription(reg,keyData);
+ } catch(e){msg(out,e.message||'Could not enable notifications.','error');}
+}
+const enableBtn=$('#enableNotifications'); if(enableBtn) enableBtn.onclick=enableRetailerNotifications;
+function receiptDate(value){try{return new Date(value).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short'})}catch{return String(value||'—')}}
+function receiptRows(order){return [['Order No.',order.order_number],['Customer',order.customer_name],['Mobile',order.mobile],['Network',order.network],['Promo',order.promo],['Amount',money(order.amount_cents)],['Payment','Wallet Balance'],['Order Time',receiptDate(order.created_at)],['Status',String(order.status||'PROCESSING').toUpperCase()],...(order.completed_at?[['Successful Time',receiptDate(order.completed_at)]]:[])];}
+function openHistoryReceipt(order){if(!order)return;activeHistoryReceipt=order;$('#receiptTitle').textContent=`Order Receipt — ${order.order_number}`;$('#historyReceiptRows').innerHTML=receiptRows(order).map(([k,v])=>`<div class="history-receipt-row"><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('');$('#receiptModal').hidden=false;document.body.classList.add('receipt-modal-open')}
+function closeHistoryReceipt(){$('#receiptModal').hidden=true;document.body.classList.remove('receipt-modal-open')}
+$('#closeHistoryReceipt').onclick=closeHistoryReceipt;$('#receiptModal').addEventListener('click',e=>{if(e.target===$('#receiptModal'))closeHistoryReceipt()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#receiptModal').hidden)closeHistoryReceipt()});
+function receiptSvg(order){const rows=receiptRows(order),width=900,rowH=62,height=260+rows.length*rowH;const xml=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));const rowSvg=rows.map((r,i)=>{const y=245+i*rowH;return `<text x="70" y="${y}" font-family="Arial,sans-serif" font-size="25" fill="#667085">${xml(r[0])}</text><text x="830" y="${y}" text-anchor="end" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#101828">${xml(r[1])}</text>`}).join('');return {svg:`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" fill="#ffffff"/><text x="70" y="65" font-family="Arial,sans-serif" font-size="29" font-weight="800" fill="#101828">RONALD E-LOADING BUSINESS STATION</text><text x="70" y="105" font-family="Arial,sans-serif" font-size="20" fill="#667085">OFFICIAL ORDER RECEIPT</text><rect x="55" y="130" width="790" height="65" rx="12" fill="#f2f4f7"/><text x="75" y="172" font-family="Arial,sans-serif" font-size="24" fill="#667085">ORDER NO.</text><text x="825" y="172" text-anchor="end" font-family="Arial,sans-serif" font-size="27" font-weight="800" fill="#101828">${xml(order.order_number)}</text>${rowSvg}<text x="70" y="${height-30}" font-family="Arial,sans-serif" font-size="17" fill="#667085">Keep this receipt together with your Order Number.</text></svg>`,width,height}}
+$('#saveHistoryReceipt').onclick=()=>{if(!activeHistoryReceipt)return;const {svg,width,height}=receiptSvg(activeHistoryReceipt),url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'})),img=new Image();img.onload=()=>{const canvas=document.createElement('canvas');canvas.width=width*2;canvas.height=height*2;const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);URL.revokeObjectURL(url);canvas.toBlob(png=>{if(!png){alert('Hindi ma-save ang receipt. Subukan ang Print.');return}const filename=`${String(activeHistoryReceipt.order_number||'order').replace(/[^A-Za-z0-9_-]/g,'_')}-receipt.png`;const a=document.createElement('a');const pngUrl=URL.createObjectURL(png);a.href=pngUrl;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(pngUrl),4000)},'image/png')};img.onerror=()=>{URL.revokeObjectURL(url);alert('Hindi ma-generate ang receipt image. Subukan ang Print.')};img.src=url};
+$('#printHistoryReceipt').onclick=()=>{if(!activeHistoryReceipt)return;const {svg}=receiptSvg(activeHistoryReceipt),w=window.open('','_blank');if(!w){alert('Payagan ang pop-up para makapag-print, o gamitin ang Save receipt to phone.');return}w.document.write(`<!doctype html><html><head><title>Order Receipt</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{font-family:Arial,sans-serif;padding:16px;text-align:center}img{width:100%;max-width:650px}@media print{button{display:none}}</style></head><body><img alt="Order receipt" src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}"><script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`);w.document.close()};
+function badge(s){const v=String(s||'').toUpperCase();return `<span class="badge ${v.toLowerCase()}">${v}</span>`}function renderTable(sel,heads,rows){const el=$(sel);if(!rows.length){el.innerHTML='<div class="empty">No records yet.</div>';return}el.innerHTML='<div class="tablewrap"><table><thead><tr>'+heads.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map(v=>`<td>${v??'—'}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>'}
+$('#orderForm').onsubmit=async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button');b.disabled=true;msg($('#orderMsg'),'Submitting order…');try{const d=await api('/api/retailer/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(formObj(f))});f.reset();msg($('#orderMsg'),`${d.message} Order number: ${d.order.order_number}`,'success');await loadApp()}catch(x){msg($('#orderMsg'),x.message,'error')}finally{b.disabled=false}};
+const topupPaymentInfo={
+  'GCash':{name:'Ronald P.',account:'09919018849',qr:'assets/qr/gcash.jpg'},
+  'Maya':{name:'Ronald P.',account:'09917019078',qr:'assets/qr/maya.jpg'},
+  'GoTyme Bank':{name:'Ronald P.',account:'Account No. 014261416464',copy:'014261416464',qr:'assets/qr/gotyme.jpg'},
+  'MariBank':{name:'Ronald P.',account:'Account No. 16065980076',copy:'16065980076',qr:'assets/qr/maribank.jpg'},
+  'QR PH':{name:'For other e-wallets and bank accounts',account:'Scan the QR code using your supported bank or e-wallet app.',qr:'assets/qr/qrph.png'}
+};
+function renderTopupPaymentDetails(){const method=$('#topupMethod').value;const box=$('#topupPaymentDetails');if(!method||!topupPaymentInfo[method]){box.innerHTML='<b>Payment details</b><p class="muted">Choose a payment method to display the account details.</p>';return}const d=topupPaymentInfo[method];const copyValue=d.copy||(method==='GCash'||method==='Maya'?d.account.replace(/\D/g,''):'');box.innerHTML=`<div class="payment-detail-head"><div><span class="payment-label">SELECTED PAYMENT METHOD</span><h3>${esc(method)}</h3><strong class="payment-recipient">${esc(d.name)}</strong><p class="payment-account">${esc(d.account)}</p></div>${copyValue?`<button type="button" class="copy-mop-btn" data-copy-payment="${esc(copyValue)}">📋 COPY NUMBER</button>`:''}</div><button type="button" class="qr-btn" id="toggleTopupQR">View QR Code</button><div class="qr-preview" id="topupQRPreview" hidden><img src="${esc(d.qr)}" alt="${esc(method)} QR code"><a class="qr-download-btn" href="${esc(d.qr)}" download="${method.toLowerCase().replace(/\s+/g,'-')}-qr-code">Download QR Code</a></div>`;const copyBtn=box.querySelector('[data-copy-payment]');if(copyBtn)copyBtn.onclick=async()=>{const value=copyBtn.dataset.copyPayment;try{await navigator.clipboard.writeText(value)}catch(e){const temp=document.createElement('textarea');temp.value=value;temp.style.position='fixed';temp.style.opacity='0';document.body.appendChild(temp);temp.select();document.execCommand('copy');temp.remove()}const old=copyBtn.textContent;copyBtn.textContent='✅ COPIED';setTimeout(()=>copyBtn.textContent=old,1500)};$('#toggleTopupQR').onclick=()=>{const preview=$('#topupQRPreview');preview.hidden=!preview.hidden;$('#toggleTopupQR').textContent=preview.hidden?'View QR Code':'Hide QR Code'}}
+$('#topupMethod').onchange=renderTopupPaymentDetails;
+$('#topupForm').onsubmit=async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');b.disabled=true;msg($('#topupMsg'),'Sending request…');try{const d=await api('/api/retailer/topups',{method:'POST',body:new FormData(f)});f.reset();renderTopupPaymentDetails();msg($('#topupMsg'),d.message,'success');await loadApp()}catch(x){msg($('#topupMsg'),x.message,'error')}finally{b.disabled=false}};
+let retailerCatalog=null;
+const networkLogo={'GLOBE':'globe.png','TM':'tm.png','DITO':'dito.png','SMART':'smart.png','TNT':'tnt.png','GOMO':'gomo.png','GFIBER':'gfiber.png','GLOBE AT HOME':'globeathome.png','PLDT':'pldt.png','CIGNAL':'cignal.png'};
+const networkDisplay={'GLOBE':'Globe','TM':'TM','DITO':'DITO','SMART':'Smart','TNT':'TNT','GOMO':'GOMO','GFIBER':'GFIBER Prepaid','GLOBE AT HOME':'Globe At Home','PLDT':'PLDT','CIGNAL':'CIGNAL'};
+const networkTheme={'GLOBE':['#0877e8','#e8f2ff'],'TM':['#e53935','#fff0f0'],'DITO':['#3157c8','#eef1ff'],'SMART':['#159447','#e7f7ec'],'TNT':['#f0b400','#fff8df'],'GOMO':['#7b1e3a','#f7e8ee'],'GFIBER':['#d81b60','#fdeaf2'],'GLOBE AT HOME':['#163f91','#e8eefb'],'PLDT':['#d71920','#fff0f0'],'CIGNAL':['#d71920','#fff0f0']};
+function selectedPromoRow(){const network=$('#retailerNetwork').value;const idx=Number($('#retailerPromo').value);return retailerCatalog?.promos?.[network]?.[idx]||null}
+function updatePromoDetails(){const row=selectedPromoRow();const details=$('#promoDetails');if(!row){$('#retailerAmount').value='';details.innerHTML='<p class="muted">Pumili ng promo para makita ang description at presyo.</p>';return}$('#retailerAmount').value=Number(row[2]).toFixed(2);const network=$('#retailerNetwork').value;const logo=networkLogo[network];const img=logo?`<img class="promo-network-logo" src="assets/networks/${logo}" alt="">`:'';details.innerHTML=`<div class="promo-details-head">${img}<div><strong>${esc(row[0])}</strong><div class="promo-network">${esc(networkDisplay[network]||network)}</div></div><strong class="promo-price">${money(Math.round(Number(row[2])*100))}</strong></div><p>${esc(row[1])}</p>${row[3]?'<span class="promo-tag">FEATURED PROMO</span>':''}`}
+function renderNetworkCards(){const grid=$('#retailerNetworkGrid');grid.innerHTML=retailerCatalog.NETWORKS.map(n=>{const theme=networkTheme[n]||['#1677ff','#eaf4ff'];const logo=networkLogo[n];return `<button type="button" class="retailer-network-card" data-network="${esc(n)}" style="--net-color:${theme[0]};--net-soft:${theme[1]}">${logo?`<img src="assets/networks/${logo}" alt="">`:''}<span>${esc(networkDisplay[n]||n)}</span></button>`}).join('');grid.querySelectorAll('[data-network]').forEach(btn=>btn.onclick=()=>chooseNetwork(btn.dataset.network));}
+function chooseNetwork(network){$('#retailerNetwork').value=network;$('#retailerPromo').value='';$('#retailerAmount').value='';$('#retailerNetworkGrid').querySelectorAll('.retailer-network-card').forEach(b=>b.classList.toggle('active',b.dataset.network===network));const list=retailerCatalog.promos[network]||[];const promoSelect=$('#retailerPromo');promoSelect.innerHTML='<option value="">Choose promo</option>'+list.map((row,i)=>`<option value="${i}">${esc(row[0])} — ₱${Number(row[2]).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}</option>`).join('');promoSelect.disabled=!list.length;$('#retailerPromoGrid').innerHTML=list.map((row,i)=>{const theme=networkTheme[network]||['#1677ff','#eaf4ff'];return `<article class="retailer-promo-card" data-promo-index="${i}" style="--promo-color:${theme[0]};--promo-soft:${theme[1]}"><div class="retailer-promo-top"><strong>${esc(row[0])}</strong><b>₱${Number(row[2]).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}</b></div><div class="retailer-promo-info"><h4>${esc(row[0])}</h4><p>${esc(row[1])}</p></div><div class="retailer-promo-bottom"><strong>₱${Number(row[2]).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><button type="button" data-choose-promo="${i}">Select Promo</button></div></article>`}).join('');$('#retailerPromoStep').hidden=!list.length;$('#retailerDetailsStep').hidden=true;$('#promoDetails').innerHTML='<p class="muted">Pumili ng promo sa itaas para magpatuloy sa pag-order.</p>';$('#orderMsg').textContent='';$('#retailerPromoStep').scrollIntoView({behavior:'smooth',block:'start'});$('#retailerPromoGrid').querySelectorAll('[data-choose-promo]').forEach(btn=>btn.onclick=()=>choosePromo(Number(btn.dataset.choosePromo)));}
+function choosePromo(index){const network=$('#retailerNetwork').value;const row=retailerCatalog?.promos?.[network]?.[index];if(!row)return;$('#retailerPromo').value=String(index);$('#retailerPromoGrid').querySelectorAll('.retailer-promo-card').forEach(card=>card.classList.toggle('active',Number(card.dataset.promoIndex)===index));updatePromoDetails();$('#retailerDetailsStep').hidden=false;$('#retailerDetailsStep').scrollIntoView({behavior:'smooth',block:'start'});}
+async function loadCatalog(){const networkSelect=$('#retailerNetwork'),promoSelect=$('#retailerPromo');try{retailerCatalog=await api('/api/retailer/catalog');networkSelect.innerHTML='<option value="">Choose network</option>'+retailerCatalog.NETWORKS.map(n=>`<option value="${esc(n)}">${esc(networkDisplay[n]||n)}</option>`).join('');renderNetworkCards();networkSelect.onchange=()=>chooseNetwork(networkSelect.value);promoSelect.onchange=()=>{if(promoSelect.value!=='')choosePromo(Number(promoSelect.value))};}catch(e){$('#retailerNetworkGrid').innerHTML='<p class="msg error">Hindi ma-load ang network catalog. I-refresh ang page o kontakin ang admin.</p>';networkSelect.innerHTML='<option value="">Catalog unavailable</option>';promoSelect.innerHTML='<option value="">Please refresh or contact admin</option>';msg($('#orderMsg'),'Could not load the live promo catalog. Please refresh the page.','error')}}
+
+const mobileInput=$('#orderForm input[name="mobile"]');if(mobileInput){mobileInput.addEventListener('input',()=>{mobileInput.value=mobileInput.value.replace(/\D/g,'').slice(0,11);});mobileInput.addEventListener('paste',e=>{e.preventDefault();const pasted=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,11);document.execCommand('insertText',false,pasted);});}
+
+$('#orderForm').onsubmit=async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');b.disabled=true;msg($('#orderMsg'),'Submitting order…');try{const mobile=String(f.querySelector('input[name="mobile"]').value||'').replace(/\D/g,'');if(!/^\d{11}$/.test(mobile))throw new Error('Mobile number must be exactly 11 digits.');const row=selectedPromoRow();if(!row)throw new Error('Please choose a network and promo first.');const payload=formObj(f);payload.mobile=mobile;payload.network=$('#retailerNetwork').value;payload.promo=row[0];payload.amount=Number(row[2]);const d=await api('/api/retailer/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});f.reset();$('#retailerNetwork').value='';$('#retailerPromo').innerHTML='<option value="">Choose network first</option>';$('#retailerPromo').disabled=true;$('#retailerNetworkGrid').querySelectorAll('.retailer-network-card').forEach(x=>x.classList.remove('active'));$('#retailerPromoGrid').innerHTML='';$('#retailerPromoStep').hidden=true;$('#retailerDetailsStep').hidden=true;updatePromoDetails();msg($('#orderMsg'),`${d.message} Order number: ${d.order.order_number}`,'success');await loadApp()}catch(x){msg($('#orderMsg'),x.message,'error')}finally{b.disabled=false}};
+loadCatalog();
+loadApp();
+
+
+// Phase 2 presentation-only features: countdown and back-to-top control.
+(function initChristmasExtras(){
+  const target = new Date('2026-12-25T00:00:00+08:00').getTime();
+  const parts = {
+    days: document.getElementById('countdownDays'),
+    hours: document.getElementById('countdownHours'),
+    minutes: document.getElementById('countdownMinutes'),
+    seconds: document.getElementById('countdownSeconds'),
+    message: document.getElementById('countdownMessage')
+  };
+  function updateCountdown(){
+    if(!parts.days || !parts.hours || !parts.minutes || !parts.seconds) return;
+    const remaining = Math.max(0, target - Date.now());
+    const totalSeconds = Math.floor(remaining / 1000);
+    parts.days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2,'0');
+    parts.hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2,'0');
+    parts.minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2,'0');
+    parts.seconds.textContent = String(totalSeconds % 60).padStart(2,'0');
+    if(parts.message) parts.message.textContent = remaining > 0 ? 'Philippine Time (PHT) · Countdown to Christmas Day' : '🎄 Merry Christmas!';
+  }
+  updateCountdown();
+  window.setInterval(updateCountdown, 1000);
+  const backToTop = document.getElementById('backToTop');
+  if(backToTop){
+    const updateButton = () => { backToTop.hidden = window.scrollY < 420; };
+    window.addEventListener('scroll', updateButton, {passive:true});
+    updateButton();
+    backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}));
+  }
+})();
+
+
+// Load business description and hours configured by the authorized Telegram admin bot.
+async function loadBusinessInfoPanel(){try{const r=await fetch('/api/business-info',{cache:'no-store'});if(!r.ok)return;const d=await r.json();const description=document.getElementById('businessDescription');const hours=document.getElementById('businessHoursValue');if(description&&typeof d.description==='string')description.textContent=d.description;if(hours&&typeof d.businessHours==='string')hours.textContent=d.businessHours;}catch(e){/* Keep safe built-in defaults when API is offline. */}}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadBusinessInfoPanel,{once:true});}else{loadBusinessInfoPanel();}
